@@ -1,0 +1,2 @@
+- close drawer when clicking
+- update title in the header depend on the page/route
