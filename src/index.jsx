@@ -1,10 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Voting from './components/Voting';
+import React from "react";
+import ReactDOM from "react-dom";
+import {Router, Route, browserHistory, IndexRoute} from "react-router";
+import App from "./components/App";
+import Home from "./components/Home";
+import Account from "./components/Account";
 
-const pair = ['Trainspotting', '28 Days Later'];
+ReactDOM.render((
+        <Router history={browserHistory}>
+            <Route path="/" component={App}>
 
-ReactDOM.render(
-  <Voting pair={pair} />,
-  document.getElementById('app')
+                <IndexRoute component={Home}/>
+
+                <Route path="/account/:accountId" component={Account}/>
+            </Route>
+        </Router>),
+    document.getElementById('app')
 );
