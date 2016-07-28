@@ -3,9 +3,13 @@ import PureRenderMixin from "react-addons-pure-render-mixin";
 import {connect} from "react-redux";
 import Header from "./Header";
 import Drawer from "./Drawer";
+import * as actionCreators from "../action_creators";
 
 export const App = React.createClass({
   mixins: [PureRenderMixin],
+  componentDidMount: function () {
+    componentHandler.upgradeDom();
+  },
   getAccountName: function (accountId) {
     for (let account of this.props.accounts) {
       if (account.get('id') === accountId) {
@@ -28,7 +32,7 @@ export const App = React.createClass({
 
       <main className="mdl-layout__content">
         <div className="page-content">
-          {React.cloneElement(this.props.children, {accounts: this.props.accounts})}
+          {React.cloneElement(this.props.children, this.props)}
         </div>
       </main>
     </div>;
@@ -41,5 +45,8 @@ function mapStateToProps(state) {
   };
 }
 
-export const AppContainer = connect(mapStateToProps)(App);
+export const AppContainer = connect(
+  mapStateToProps,
+  actionCreators
+)(App);
 
