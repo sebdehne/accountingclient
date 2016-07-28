@@ -32,7 +32,7 @@ export const App = React.createClass({
 
       <main className="mdl-layout__content">
         <div className="page-content">
-          {React.cloneElement(this.props.children, this.props)}
+          {React.cloneElement(this.props.children)}
         </div>
       </main>
     </div>;

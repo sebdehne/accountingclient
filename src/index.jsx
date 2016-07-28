@@ -8,7 +8,7 @@ import reducer from "./reducer";
 import remoteActionMiddleware from "./remote_action_middleware";
 import {AppContainer} from "./components/App";
 import Home from "./components/Home";
-import Account from "./components/Account";
+import {AccountContainer} from "./components/Account";
 import "whatwg-fetch";
 
 
@@ -22,7 +22,7 @@ function start() {
 
             <IndexRoute component={Home}/>
 
-            <Route path="/account/:accountId" component={Account}/>
+            <Route path="/account/:accountId" component={AccountContainer}/>
           </Route>
         </Router>
       </Provider>),
