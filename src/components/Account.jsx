@@ -15,6 +15,6 @@ export default React.createClass({
         return result
     },
     render: function () {
-        return <h2>In Account</h2>;
+        return <div></div>;
     }
 });
