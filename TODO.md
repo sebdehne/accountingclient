@@ -1,3 +1,3 @@
-
-
+- show error popup
+- show loading animation then fetching
 - close drawer when clicking

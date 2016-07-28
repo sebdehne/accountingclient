@@ -2,6 +2,7 @@ var webpack = require('webpack');
 
 module.exports = {
   entry: [
+    'whatwg-fetch',
     'webpack-dev-server/client?http://localhost:8080',
     'webpack/hot/only-dev-server',
     './src/index.jsx'
@@ -23,9 +24,15 @@ module.exports = {
   },
   devServer: {
     contentBase: './dist',
-    hot: true
+    hot: true,
+    proxy: {
+      '/accounting*': {
+        target: 'http://localhost:8081',
+        secure: false
+      }
+    }
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin()
-  ]
+  ],
 };
