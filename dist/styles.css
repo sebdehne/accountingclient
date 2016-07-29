@@ -1,0 +1,48 @@
+.amount {
+    text-align: right;
+}
+
+.debug-border {
+    border: black solid thin;
+}
+
+.tx-row {
+    display: -webkit-flex;
+    display: flex;
+    width: 100%;
+}
+
+.tx-column {
+    display: table-cell;
+}
+
+.tx-side-space.left {
+    float: left;
+}
+
+.tx-side-space.right {
+    float: right;
+}
+
+
+/* Phone only */
+@media (max-width: 479px) {
+    .tx-side-space {
+        display: none !important;
+    }
+}
+
+/* Tablet only */
+@media (max-width: 839px) {
+    .tx-side-space {
+        display: none !important;
+    }
+}
+
+/* Desktop or bigger */
+@media (min-width: 840px) {
+    .tx-side-space {
+        width: calc(20%)
+    }
+}
+

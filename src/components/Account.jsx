@@ -2,35 +2,46 @@ import React from "react";
 import {connect} from "react-redux";
 import PureRenderMixin from "react-addons-pure-render-mixin";
 import * as actionCreators from "../action_creators";
+import TransactionRow from "./TransactionRow";
 
 export const Account = React.createClass({
-  mixins: [PureRenderMixin],
-  loadTransaction: function () {
-    this.props.loadTransactions(this.props.params.accountId)
-  },
-  componentDidMount: function () {
-    // fetch transactions now
-    this.loadTransaction();
-  },
-  componentDidUpdate: function (prevProps) {
-    if (prevProps.params.accountId !== this.props.params.accountId) {
-      this.loadTransaction();
+    mixins: [PureRenderMixin],
+    loadTransaction: function () {
+        this.props.loadTransactions(this.props.params.accountId)
+    },
+    componentDidMount: function () {
+        // fetch transactions now
+        this.loadTransaction();
+    },
+    componentDidUpdate: function (prevProps) {
+        if (prevProps.params.accountId !== this.props.params.accountId) {
+            this.loadTransaction();
+        }
+    },
+    render: function () {
+        return <div>
+            <div className="mdl-grid mdl-grid--no-spacing">
+                <div className="mdl-cell mdl-cell--12-col">header space</div>
+            </div>
+            {this.props.transactions.transactions.map(tx =>
+                <TransactionRow key={tx.id} tx={tx}/>
+            )}
+            <div className="mdl-grid mdl-grid--no-spacing">
+                <div className="mdl-cell mdl-cell--12-col">.</div>
+            </div>
+        </div>;
     }
-  },
-  render: function () {
-    return <h2>Loaded {this.props.transactions.transactions.length} transactions</h2>;
-  }
 });
 
 
 function mapStateToProps(state) {
-  return {
-    accounts: state.get('accounts'),
-    transactions: state.get('transactions', {base_amount: 0, transactions: []})
-  };
+    return {
+        accounts: state.get('accounts'),
+        transactions: state.get('transactions', {base_amount: 0, transactions: []})
+    };
 }
 
 export const AccountContainer = connect(
-  mapStateToProps,
-  actionCreators
+    mapStateToProps,
+    actionCreators
 )(Account);
