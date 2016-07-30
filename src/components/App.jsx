@@ -24,9 +24,7 @@ export const App = React.createClass({
       <Drawer accounts={this.props.accounts}/>
 
       <main className="mdl-layout__content">
-        <div className="page-content">
-          {React.cloneElement(this.props.children)}
-        </div>
+        {React.cloneElement(this.props.children)}
       </main>
     </div>;
   }

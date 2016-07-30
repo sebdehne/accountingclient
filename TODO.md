@@ -1,5 +1,4 @@
 Major:
-- start with scrolled to the buttom
 - auto load more on scrolling up
 - view transactions on phone
 - add/edit/remove transactions
