@@ -10,39 +10,167 @@
     display: -webkit-flex;
     display: flex;
     width: 100%;
+    margin-top: 20px;
 }
 
-.tx-column {
-    display: table-cell;
+.tx-sub-row {
+    display: -webkit-flex;
+    display: flex;
+    width: 100%;
 }
 
-.tx-side-space.left {
-    float: left;
+.tx-date-large {
+    font-size: 20px;
 }
 
-.tx-side-space.right {
-    float: right;
+.tx-payee-large {
+    font-size: 20px;
+}
+
+.tx-amount-large {
+    font-size: 20px;
+}
+
+.tx-field {
+    margin: 2px;
+    padding: 5px;
+    background-color: #eeeeee;
+}
+
+.tx-field-space {
+    margin: 2px;
+    padding: 5px;
 }
 
 
 /* Phone only */
 @media (max-width: 479px) {
-    .tx-side-space {
+    .tx-side-space-left {
+        display: none !important;
+    }
+
+    .tx-side-space-right {
+        display: none !important;
+    }
+
+    .tx-center-phone {
+        width: 100%;
+    }
+
+    .tx-center-large {
         display: none !important;
     }
 }
 
 /* Tablet only */
-@media (max-width: 839px) {
-    .tx-side-space {
+@media (max-width: 839px) and (min-width: 480px) {
+    .tx-side-space-left {
         display: none !important;
     }
+
+    .tx-side-space-right {
+        display: none !important;
+    }
+
+    .tx-center-phone {
+        display: none !important;
+    }
+
+    .tx-center-large {
+        width: 100%;
+    }
+
+    /* data specific fields */
+    .tx-date-large {
+        width: 120px;
+        max-width: 120px;
+        min-width: 120px;
+    }
+
+    .tx-payee-large, .tx-memo-large {
+        width: 100%;
+    }
+
+    .tx-amount-large {
+        width: 150px;
+        max-width: 150px;
+        min-width: 150px;
+    }
+
+    .tx-saldo-large {
+        width: 100px;
+        max-width: 100px;
+        min-width: 100px;
+    }
+
+    .tx-split-amount-large {
+        width: 100px;
+        max-width: 100px;
+        min-width: 100px;
+    }
+
+    .tx-category-large {
+        width: 180px;
+        max-width: 180px;
+        min-width: 180px;
+    }
+
 }
 
 /* Desktop or bigger */
 @media (min-width: 840px) {
-    .tx-side-space {
-        width: calc(20%)
+    .tx-side-space-left {
+        float: left;
+        width: 15%;
     }
+
+    .tx-side-space-right {
+        float: right;
+        width: 15%;
+    }
+
+    .tx-center-phone {
+        display: none !important;
+    }
+
+    .tx-center-large {
+        width: 100%;
+    }
+
+    /* data specific fields */
+    .tx-date-large {
+        width: 120px;
+        max-width: 120px;
+        min-width: 120px;
+    }
+
+    .tx-payee-large, .tx-memo-large {
+        width: 100%;
+    }
+
+    .tx-amount-large {
+        width: 150px;
+        max-width: 150px;
+        min-width: 150px;
+    }
+
+    .tx-saldo-large {
+        width: 100px;
+        max-width: 100px;
+        min-width: 100px;
+    }
+
+    .tx-split-amount-large {
+        width: 100px;
+        max-width: 100px;
+        min-width: 100px;
+    }
+
+    .tx-category-large {
+        width: 180px;
+        max-width: 180px;
+        min-width: 180px;
+    }
+
 }
 

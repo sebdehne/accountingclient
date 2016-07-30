@@ -1,6 +1,7 @@
 import React from "react";
 import PureRenderMixin from "react-addons-pure-render-mixin";
 import {connect} from "react-redux";
+import {fromJS} from "immutable";
 import Header from "./Header";
 import Drawer from "./Drawer";
 import * as actionCreators from "../action_creators";
@@ -10,19 +11,11 @@ export const App = React.createClass({
   componentDidMount: function () {
     componentHandler.upgradeDom();
   },
-  getAccountName: function (accountId) {
-    for (let account of this.props.accounts) {
-      if (account.get('id') === accountId) {
-        return account.get('name');
-      }
-    }
-    return "Unknown"
-  },
   getPageTitle: function () {
     if (this.props.location.pathname.indexOf("/account/") === -1) {
       return "Start page"
     } else {
-      return "Account - " + this.getAccountName(this.props.params.accountId)
+      return "Account - " + this.props.accounts.get(this.props.params.accountId, fromJS({name: "Unknown"})).get("name");
     }
   },
   render: function () {

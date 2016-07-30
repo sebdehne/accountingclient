@@ -1,19 +1,14 @@
 import {setTransactions} from "./action_creators";
+import {fetchJson} from "./api";
 
 export default store => next => action => {
 
   switch (action.type) {
+
     case 'LOAD_TRANSACTIONS':
-      fetch('/accounting/v1/account/' + action.accountId + '/transactions')
-        .then(function (response) {
-          return response.json()
-        })
-        .then(function (json) {
-          store.dispatch(setTransactions(json))
-        })
-        .catch(function (ex) {
-          console.log('parsing failed', ex)
-        });
+      fetchJson('/accounting/v1/account/' + action.accountId + '/transactions?limit=20', function (json) {
+        store.dispatch(setTransactions(json))
+      });
   }
 
   console.log('in middleware', action);

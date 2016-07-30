@@ -1,6 +1,18 @@
+Major:
+- start with scrolled to the buttom
+- auto load more on scrolling up
+- view transactions on phone
+- add/edit/remove transactions
+- category grouping (for reports)
+- report 1: monthly summery (for updating budget)
+- add/edit/remove categories
+- importer from online banking
+
+Minor:
 - show error popup
 - show loading animation then fetching
 - close drawer when clicking
+
 
 Phone:
 

@@ -8,6 +8,6 @@ export function loadTransactions(accountId) {
 export function setTransactions(transactions) {
   return {
     type: 'SET_TRANSACTIONS',
-    transactions: transactions
+    data: transactions
   }
 }

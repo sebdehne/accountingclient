@@ -4,6 +4,7 @@ import {Router, Route, hashHistory, IndexRoute} from "react-router";
 import {Provider} from "react-redux";
 import {createStore, applyMiddleware} from "redux";
 import {fromJS} from "immutable";
+import {fetchAccounts, fetchCategories, fetchPayees} from "./api";
 import reducer from "./reducer";
 import remoteActionMiddleware from "./remote_action_middleware";
 import {AppContainer} from "./components/App";
@@ -29,16 +30,16 @@ function start() {
     document.getElementById('app'));
 }
 
-fetch('/accounting/v1/accounts')
-  .then(function (response) {
-    return response.json()
-  })
-  .then(function (json) {
-    store.dispatch({type: 'SET_ACCOUNTS', accounts: fromJS(json)});
+fetchAccounts(json => {
+  store.dispatch({type: 'SET_ACCOUNTS', data: fromJS(json)});
 
-    start();
-  })
-  .catch(function (ex) {
-    console.log('parsing failed', ex)
+  fetchPayees(json => {
+    store.dispatch({type: 'SET_PARTIES', data: fromJS(json)});
+
+    fetchCategories(json => {
+      store.dispatch({type: 'SET_CATEGORIES', data: fromJS(json)});
+
+      start();
+    });
   });
-
+});
