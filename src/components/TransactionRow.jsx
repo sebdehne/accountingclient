@@ -14,16 +14,16 @@ export const TransactionRow = React.createClass({
     });
 
     var result = "";
-    if (this.props.tx.amount > 0) {
+    if (this.props.tx.get('amount') > 0) {
       result += "Fra: ";
     } else {
       result += "Til: ";
     }
 
-    if (this.props.tx.remote_account_id) {
-      result += this.props.accounts.get(this.props.tx.remote_account_id, unknown).get('name');
+    if (this.props.tx.get('remote_account_id')) {
+      result += this.props.accounts.get(this.props.tx.get('remote_account_id'), unknown).get('name');
     } else {
-      result += this.props.parties.get(this.props.tx.remote_party_id, unknown).get('name');
+      result += this.props.parties.get(this.props.tx.get('remote_party_id'), unknown).get('name');
     }
 
     return result;
@@ -44,17 +44,17 @@ export const TransactionRow = React.createClass({
       <div className="tx-center-large">
 
         <div className="tx-center-large tx-sub-row">
-          <div className="tx-date-large tx-field ">{unixTimestampToDateString(this.props.tx.date)}</div>
+          <div className="tx-date-large tx-field ">{unixTimestampToDateString(this.props.tx.get('date'))}</div>
           <div className="tx-payee-large tx-field">{this.getTitle()}</div>
-          <div className="tx-amount-large tx-field amount">{amountToString(this.props.tx.amount)}</div>
-          <div className="tx-saldo-large tx-field amount">{amountToString(this.props.tx.account_balance)}</div>
+          <div className="tx-amount-large tx-field amount">{amountToString(this.props.tx.get('amount'))}</div>
+          <div className="tx-saldo-large tx-field amount">{amountToString(this.props.tx.get('account_balance'))}</div>
         </div>
 
-        {this.props.tx.details.map(split =>
-          <div key={this.props.tx.id + "-" + this.genId()} className="tx-center-large tx-sub-row">
-            <div className="tx-category-large tx-field">{this.getCategory(split.category_id)}</div>
-            <div className="tx-memo-large tx-field">{split.description ? split.description : <i>no memo</i>}</div>
-            <div className="tx-split-amount-large tx-field amount">{amountToString(split.amount)}</div>
+        {this.props.tx.get('details').map(split =>
+          <div key={this.props.tx.get('id') + "-" + this.genId()} className="tx-center-large tx-sub-row">
+            <div className="tx-category-large tx-field">{this.getCategory(split.get('category_id'))}</div>
+            <div className="tx-memo-large tx-field">{split.get('description', "")}</div>
+            <div className="tx-split-amount-large tx-field amount">{amountToString(split.get('amount'))}</div>
             <div className="tx-saldo-large tx-field-space"></div>
           </div>
         )}

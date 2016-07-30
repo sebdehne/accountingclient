@@ -7,7 +7,7 @@ export default store => next => action => {
 
     case 'LOAD_TRANSACTIONS':
       fetchJson('/accounting/v1/account/' + action.accountId + '/transactions?limit=20', function (json) {
-        store.dispatch(setTransactions(json))
+        store.dispatch(setTransactions(json, action.replaceAll))
       });
   }
 

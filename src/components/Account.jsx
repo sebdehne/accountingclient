@@ -4,20 +4,21 @@ import PureRenderMixin from "react-addons-pure-render-mixin";
 import * as actionCreators from "../action_creators";
 import {TransactionRowContainer} from "./TransactionRow";
 import $ from "jquery";
+import {fromJS} from "immutable";
 
 export const Account = React.createClass({
   mixins: [PureRenderMixin],
-  switchAccount: function () {
+  switchAccount: function (replaceAll) {
     this.props.scrollState.isNewPage = true;
-    this.props.loadTransactions(this.props.params.accountId)
+    this.props.loadTransactions(this.props.params.accountId, replaceAll)
   },
   componentDidMount: function () {
     // fetch transactions now
-    this.switchAccount();
+    this.switchAccount(true);
   },
   componentDidUpdate: function (prevProps) {
     if (prevProps.params.accountId !== this.props.params.accountId) {
-      this.switchAccount();
+      this.switchAccount(true);
     }
 
     // transactions for new account loaded, scroll down
@@ -32,8 +33,8 @@ export const Account = React.createClass({
       <div className="mdl-grid">
         <div className="mdl-cell mdl-cell--12-col"></div>
       </div>
-      {this.props.transactions.transactions.map(tx =>
-        <TransactionRowContainer key={tx.id} tx={tx}/>
+      {this.props.transactions.get('transactions').map(tx =>
+        <TransactionRowContainer key={tx.get('id')} tx={tx}/>
       )}
       <div className="mdl-grid">
         <div className="mdl-cell mdl-cell--12-col"></div>
@@ -45,7 +46,7 @@ export const Account = React.createClass({
 
 function mapStateToProps(state) {
   return {
-    transactions: state.get('transactions', {base_amount: 0, transactions: []}),
+    transactions: state.get('transactions', fromJS({base_amount: 0, transactions: []})),
     scrollState: {isNewPage: true}
   };
 }

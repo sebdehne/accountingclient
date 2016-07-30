@@ -1,13 +1,15 @@
-export function loadTransactions(accountId) {
+export function loadTransactions(accountId, replaceAll) {
   return {
     type: 'LOAD_TRANSACTIONS',
-    accountId: accountId
+    accountId: accountId,
+    replaceAll: replaceAll
   };
 }
 
-export function setTransactions(transactions) {
+export function setTransactions(transactions, replaceAll) {
   return {
     type: 'SET_TRANSACTIONS',
-    data: transactions
+    data: transactions,
+    replaceAll: replaceAll
   }
 }
