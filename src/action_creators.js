@@ -1,8 +1,9 @@
-export function loadTransactions(accountId, replaceAll) {
+export function loadTransactions(accountId, offset, whenDone) {
   return {
-    type: 'LOAD_TRANSACTIONS',
+    type: 'LOAD_NEXT_TRANSACTIONS',
     accountId: accountId,
-    replaceAll: replaceAll
+    offset: offset,
+    whenDone: whenDone
   };
 }
 

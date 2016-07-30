@@ -8,26 +8,53 @@ import {fromJS} from "immutable";
 
 export const Account = React.createClass({
   mixins: [PureRenderMixin],
-  switchAccount: function (replaceAll) {
-    this.props.scrollState.isNewPage = true;
-    this.props.loadTransactions(this.props.params.accountId, replaceAll)
-  },
-  componentDidMount: function () {
-    // fetch transactions now
-    this.switchAccount(true);
-  },
-  componentDidUpdate: function (prevProps) {
-    if (prevProps.params.accountId !== this.props.params.accountId) {
-      this.switchAccount(true);
+
+  loadMoreTransactions: function (accountSwitched, whenDone) {
+    this.props.loadingState.loading = true;
+
+    var offset = this.props.transactions.get('next_offset', 0);
+    if (accountSwitched) {
+      offset = 0;
     }
 
-    // transactions for new account loaded, scroll down
-    if (this.props.scrollState.isNewPage) {
+    var that = this;
+    this.props.loadTransactions(this.props.params.accountId, offset, function () {
+      that.props.loadingState.loading = false;
+      if (whenDone) {
+        whenDone();
+      }
+    });
+  },
+
+  componentDidMount: function () {
+    // install scroll listener
+    var mainDiv = $('.mdl-layout__content');
+    var that = this;
+    mainDiv.on("scroll", function () {
+      if (!that.props.loadingState.loading && mainDiv.scrollTop() < 100 && that.props.transactions.get('skipped_transactions')) {
+        console.log("Need to load more!!!!");
+        that.loadMoreTransactions(false);
+      }
+    });
+
+    // fetch first transactions now
+    this.loadMoreTransactions(true, function () {
+      // transactions for new account loaded, scroll down
       var mainDiv = $(".mdl-layout__content");
       mainDiv.scrollTop(mainDiv.height() + document.body.scrollWidth);
-      this.props.scrollState.isNewPage = false;
-    }
+    });
   },
+
+  componentWillUnmount: function () {
+    $('.mdl-layout__content').off("scroll")
+  },
+
+  componentDidUpdate: function (prevProps) {
+    if (prevProps.params.accountId !== this.props.params.accountId) {
+      this.loadMoreTransactions(true);
+    } 
+  },
+
   render: function () {
     return <div>
       <div className="mdl-grid">
@@ -47,7 +74,7 @@ export const Account = React.createClass({
 function mapStateToProps(state) {
   return {
     transactions: state.get('transactions', fromJS({base_amount: 0, transactions: []})),
-    scrollState: {isNewPage: true}
+    loadingState: {loading: false}
   };
 }
 

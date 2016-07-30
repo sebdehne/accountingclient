@@ -8,9 +8,18 @@ export default function (state = fromJS({accounts: []}), action) {
       if (action.replaceAll) {
         state = state.delete('transactions');
       }
-      var txs = state.get('transactions', Map()).get('transactions', List());
-      txs = txs.concat(fromJS(action.data.transactions));
-      return state.set('transactions', Map.of('base_amount', action.data.base_amount, 'transactions', txs));
+
+      var inData = fromJS(action.data);
+      var existing = state.get('transactions', Map());
+
+      // prepend the next page of transactions in front of the existing
+      var txs = existing.get('transactions', List());
+      txs = fromJS(inData.get('transactions')).concat(txs);
+
+      inData = inData.set('transactions', txs);
+      inData = inData.set('next_offset', txs.size);
+
+      return state.set('transactions', inData);
 
     case 'SET_ACCOUNTS':
       return state.set('accounts', toOrderedMapById(action.data));
