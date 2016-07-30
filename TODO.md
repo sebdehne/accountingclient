@@ -1,5 +1,4 @@
 Major:
-- auto load more on scrolling up
 - view transactions on phone
 - add/edit/remove transactions
 - category grouping (for reports)

@@ -32,8 +32,10 @@ export const Account = React.createClass({
     var that = this;
     mainDiv.on("scroll", function () {
       if (!that.props.loadingState.loading && mainDiv.scrollTop() < 100 && that.props.transactions.get('skipped_transactions')) {
-        console.log("Need to load more!!!!");
-        that.loadMoreTransactions(false);
+        var scrollPosBeforeLoad = mainDiv[0].scrollHeight - mainDiv.scrollTop();
+        that.loadMoreTransactions(false, function () {
+          mainDiv.scrollTop(mainDiv[0].scrollHeight - scrollPosBeforeLoad);
+        });
       }
     });
 
@@ -41,7 +43,7 @@ export const Account = React.createClass({
     this.loadMoreTransactions(true, function () {
       // transactions for new account loaded, scroll down
       var mainDiv = $(".mdl-layout__content");
-      mainDiv.scrollTop(mainDiv.height() + document.body.scrollWidth);
+      mainDiv.scrollTop(mainDiv.height());
     });
   },
 
@@ -52,7 +54,7 @@ export const Account = React.createClass({
   componentDidUpdate: function (prevProps) {
     if (prevProps.params.accountId !== this.props.params.accountId) {
       this.loadMoreTransactions(true);
-    } 
+    }
   },
 
   render: function () {
