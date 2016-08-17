@@ -14,3 +14,17 @@ export function setTransactions(transactions, replaceAll) {
     replaceAll: replaceAll
   }
 }
+
+export function startEditor(transactionId) {
+  return {
+    type: 'START_EDITOR',
+    transactionId: transactionId
+  }
+}
+
+export function closeEditor(transactionId) {
+  return {
+    type: 'CLOSE_EDITOR',
+    transactionId: transactionId
+  }
+}

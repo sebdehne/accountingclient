@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import PureRenderMixin from "react-addons-pure-render-mixin";
 import * as actionCreators from "../action_creators";
 import {TransactionRowContainer} from "./TransactionRow";
+import {EditorContainer} from "./Editor";
 import $ from "jquery";
 import {fromJS} from "immutable";
 
@@ -63,7 +64,9 @@ export const Account = React.createClass({
         <div className="mdl-cell mdl-cell--12-col"></div>
       </div>
       {this.props.transactions.get('transactions').map(tx =>
-        <TransactionRowContainer key={tx.get('id')} tx={tx}/>
+        tx.get('editor') ?
+          <EditorContainer key={tx.get('id')} tx={tx}/> :
+          <TransactionRowContainer key={tx.get('id')} tx={tx}/>
       )}
       <div className="mdl-grid">
         <div className="mdl-cell mdl-cell--12-col"></div>

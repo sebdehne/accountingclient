@@ -30,6 +30,27 @@ export default function (state = fromJS({accounts: []}), action) {
     case 'SET_CATEGORIES':
       return state.set('categories', toMapById(action.data));
 
+    case 'START_EDITOR':
+      return state.updateIn(['transactions', 'transactions'], txs => {
+        return txs.map(tx => {
+          if (tx.get('id') === action.transactionId) {
+            return tx.set('editor', true);
+          } else {
+            return tx;
+          }
+        });
+      });
+    case 'CLOSE_EDITOR':
+      return state.updateIn(['transactions', 'transactions'], txs => {
+        return txs.map(tx => {
+          if (tx.get('id') === action.transactionId) {
+            return tx.delete('editor');
+          } else {
+            return tx;
+          }
+        });
+      });
+
   }
   return state;
 }

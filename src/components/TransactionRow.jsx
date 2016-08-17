@@ -51,6 +51,7 @@ export const TransactionRow = React.createClass({
       } else {
         splitLines =
           <div className="tx-center-large tx-sub-row">
+            <div className="tx-before-category tx-split-field">&nbsp;</div>
             <div className="tx-category-large tx-split-field">{this.getCategory(split.get('category_id'))}</div>
             <div className="tx-memo-large tx-split-field">{split.get('description')}</div>
             <div className="tx-saldo-large ">&nbsp;</div>
@@ -59,6 +60,7 @@ export const TransactionRow = React.createClass({
     } else {
       splitLines = this.props.tx.get('details').map(split =>
         <div key={this.props.tx.get('id') + "-" + this.genId()} className="tx-center-large tx-sub-row">
+          <div className="tx-before-category tx-split-field">&nbsp;</div>
           <div className="tx-category-large tx-split-field">{this.getCategory(split.get('category_id'))}</div>
           <div className="tx-memo-large tx-split-field">{split.get('description')}</div>
           <div className="tx-split-amount-large tx-split-field amount">{amountToString(split.get('amount'))}</div>
@@ -67,7 +69,7 @@ export const TransactionRow = React.createClass({
     }
 
 
-    return <div className="tx-row">
+    return <div className="tx-row" onDoubleClick={() => this.props.startEditor(this.props.tx.get('id'))}>
 
       <div className="tx-side-space-right"/>
 

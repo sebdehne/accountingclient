@@ -1,16 +1,16 @@
 Major:
+- show loading animation then fetching
 - view transactions on phone
 - add/edit/remove transactions
 - category grouping (for reports)
 - report 1: monthly summery (for updating budget)
 - add/edit/remove categories
 - importer from online banking
+- scroll to bottom upon opening account
 
 Minor:
 - show error popup
-- show loading animation then fetching
 - close drawer when clicking
-
 
 Phone:
 
